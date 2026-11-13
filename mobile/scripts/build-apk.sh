@@ -41,7 +41,7 @@ need apksigner
 need zip
 
 [ -f "$ANDROID_JAR" ] || {
-  echo "Missing $ANDROID_JAR (platform android-35)." >&2
+  echo "Missing $ANDROID_JAR (platform android-34)." >&2
   exit 1
 }
 [ -f "$R8_JAR" ] || {
