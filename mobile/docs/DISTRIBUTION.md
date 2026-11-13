@@ -27,7 +27,7 @@ signing-certificate.txt                  keytool output and SHA-256 fingerprint
 release-manifest.json                    versions, hashes, links, signature
 originlabs-0.0.1.cdx.json                CycloneDX 1.5 SBOM
 OriginLabs-0.0.1-web.zip                 static PWA, unzip and serve anywhere
-origin-core-0.0.1-wasm32.wasm            the trust core for other clients
+origin-core-0.0.1-wasm32-unknown-unknown.wasm   the trust core for other clients
 origin-core-0.0.1-aarch64-unknown-linux-gnu   native CLI core
 ```
 
@@ -54,6 +54,28 @@ git tag -a v0.0.1 -m "OriginLabs v0.0.1"
 git push origin main
 git push origin v0.0.1
 ```
+
+### What was done for v0.0.1
+
+The three secrets above were **not** set when `v0.0.1` was tagged, so the
+`release` workflow stopped at its first step with
+`Missing ORIGINLABS_KEYSTORE_BASE64.` — by design, it refuses to build a release
+it cannot sign. v0.0.1 was therefore published from the local, already verified
+build with `gh release create v0.0.1 mobile/release/*`, which is the manual path
+below. The uploaded APK is byte-identical to
+`9d22d6af5e527488b3715c463d05c787cb0354b5b78664d2bdb15da3ff05cbec` and matches
+`SHA256SUMS`.
+
+Before tagging `v0.0.2`, add the secrets, or the next tag will stop the same way:
+
+```sh
+gh secret set ORIGINLABS_KEYSTORE_BASE64 < <(base64 -w0 mobile/keys/originlabs.p12)
+gh secret set ORIGINLABS_STORE_PASSWORD <<< "$(cat mobile/keys/keystore.properties)"
+```
+
+Setting them uploads the signing key to GitHub. If you would rather keep the key
+off GitHub, publish every release with the manual command below and leave the
+`release` workflow unused.
 
 The workflow builds the core native and for wasm32, runs all tests, builds the
 web surface, signs the APK with the release key, runs `release.mjs`, and creates
