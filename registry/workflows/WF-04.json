@@ -1,0 +1,33 @@
+{
+  "id": "WF-04",
+  "kind": "workflow",
+  "name": "distill",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "A supported claim, reusable method, or negative result.",
+  "stages": [
+    "select",
+    "summarize",
+    "provenance",
+    "limitations",
+    "license",
+    "review",
+    "publish"
+  ],
+  "gates": [
+    "prove"
+  ],
+  "budgets": {
+    "wall_clock": "1w",
+    "usd": 20,
+    "tokens": 500000
+  },
+  "checkpoints": [
+    "after:provenance"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "KN"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-04)"
+}

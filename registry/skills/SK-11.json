@@ -1,0 +1,34 @@
+{
+  "id": "SK-11",
+  "kind": "skill",
+  "name": "route.model",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Pick the cheapest adequate free model without violating policy.",
+  "trigger": "A task and a data class.",
+  "inputs": [
+    "task",
+    "data_class",
+    "budget"
+  ],
+  "outputs": [
+    "route_decision"
+  ],
+  "tools": [
+    "TL-10"
+  ],
+  "evidence_bar": "route logged with digest",
+  "guards": [
+    "no route above data-class ceiling",
+    "no same-family verification",
+    "no paid fallback"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK11-01",
+      "pass": "route correctness 90%; zero policy violations"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-11)"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "SK-03",
+  "kind": "skill",
+  "name": "form.hypothesis",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Convert a question into claims that can lose.",
+  "trigger": "A question and prior-art brief.",
+  "inputs": [
+    "question",
+    "prior_art"
+  ],
+  "outputs": [
+    "claims",
+    "falsifiers"
+  ],
+  "tools": [
+    "TL-15"
+  ],
+  "evidence_bar": "E0",
+  "guards": [
+    "no unfalsifiable claims",
+    "name the metric behind better"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK03-01",
+      "pass": "an independent reviewer can design the test (4/5)"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-03)"
+}

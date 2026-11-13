@@ -1,0 +1,30 @@
+# Build output and local-only toolchain
+node_modules/
+target/
+**/target/
+
+# Android signing material — never commit
+mobile/keys/
+
+# Build artifacts
+mobile/build/
+mobile/release/
+mobile/toolchain/
+
+# Generated web surface (rebuilt by scripts/build-web.mjs and embed-wasm.mjs)
+mobile/web/origin_core.wasm
+mobile/web/wasm.js
+mobile/web/asset-manifest.json
+mobile/web/data/core.json
+mobile/web/data/build.json
+mobile/web/data/build.js
+mobile/web/data/registry.json
+mobile/web/data/registry.js
+mobile/app/src/main/assets/www/
+mobile/site/app/
+
+# Editors and OS
+.DS_Store
+*.swp
+.idea/
+.vscode/

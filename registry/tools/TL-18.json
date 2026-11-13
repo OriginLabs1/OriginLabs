@@ -1,0 +1,18 @@
+{
+  "id": "TL-18",
+  "kind": "tool",
+  "name": "secret.use",
+  "version": "1.0.0",
+  "status": "active",
+  "transport": "local",
+  "side_effects": "none",
+  "idempotent": true,
+  "data_class_max": 4,
+  "approval": "principal",
+  "failure": "halt",
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "audit": "ledger",
+  "summary": "Brokered, scoped, logged secret access.",
+  "spec_ref": "SPECS.md §2.3 (TL-18)"
+}

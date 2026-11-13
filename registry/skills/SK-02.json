@@ -1,0 +1,35 @@
+{
+  "id": "SK-02",
+  "kind": "skill",
+  "name": "survey.prior-art",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Establish what is known, by whom, and what remains genuinely open.",
+  "trigger": "A framed question.",
+  "inputs": [
+    "question",
+    "scope"
+  ],
+  "outputs": [
+    "prior_art_brief",
+    "source_matrix"
+  ],
+  "tools": [
+    "TL-04",
+    "TL-13",
+    "TL-14"
+  ],
+  "evidence_bar": "E1 per source",
+  "guards": [
+    "vendor claims are not evidence",
+    "log the query set"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK02-01",
+      "pass": "a second searcher reproduces 80% of sources"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-02)"
+}

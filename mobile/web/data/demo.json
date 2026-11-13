@@ -1,0 +1,400 @@
+{
+  "schema": "origin.mobile.bundle/v1",
+  "app": {
+    "name": "OriginLabs",
+    "version": "0.0.1",
+    "core": "0.0.1"
+  },
+  "demo": true,
+  "workspace": {
+    "id": "ws_demo_originlabs",
+    "name": "OriginLabs Demo",
+    "createdAt": "2026-11-13T08:00:00.000Z",
+    "owner": "principal",
+    "principal": "principal",
+    "defaultDataClass": 0,
+    "policy": "local-authoritative"
+  },
+  "events": [
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:00.000Z",
+      "dataClass": 0,
+      "hash": "3580e50936332ef35105ffceff1d005aa35686655d3856c9084b23653da10109",
+      "payload": {
+        "defaultDataClass": 0,
+        "name": "OriginLabs Demo",
+        "note": "Synthetic demo workspace. It is safe to reset.",
+        "owner": "principal",
+        "policy": "local-authoritative"
+      },
+      "prev": "0000000000000000000000000000000000000000000000000000000000000000",
+      "schema": "origin.event/v1",
+      "seq": 1,
+      "type": "workspace.created"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:01.000Z",
+      "dataClass": 0,
+      "hash": "76d9b2c89c5c2cd7c0f296534f2a4ed52eebf898b1513f406c05369081811a83",
+      "payload": {
+        "documents": [
+          "CONTEXT.md",
+          "SPECS.md"
+        ],
+        "policy": "foss-only/zero-cost",
+        "registry": {
+          "models": 8,
+          "skills": 13,
+          "tools": 20,
+          "workflows": 8
+        },
+        "version": "0.0.1"
+      },
+      "prev": "3580e50936332ef35105ffceff1d005aa35686655d3856c9084b23653da10109",
+      "schema": "origin.event/v1",
+      "seq": 2,
+      "type": "spec.versioned"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:02.000Z",
+      "dataClass": 0,
+      "hash": "2e40da52a3541a40b921a202ac7a5b44ef8cb035537dbe565ba3c4590de12005",
+      "payload": {
+        "budget": {
+          "computeHours": 0,
+          "tokens": 0,
+          "usd": 0,
+          "weeks": 6
+        },
+        "charter": "CH-0001",
+        "evidenceBar": "E2",
+        "owner": "principal",
+        "program": "P1",
+        "question": "Can every claim in this lab be traced to evidence and rerun by a stranger?",
+        "risk": {
+          "class": "low",
+          "dataClassMax": 1,
+          "dualUse": false
+        },
+        "scope": {
+          "in": [
+            "canonical JSON",
+            "hash-chain verification",
+            "offline replay"
+          ],
+          "out": [
+            "remote inference",
+            "multi-user sync"
+          ]
+        },
+        "stopConditions": [
+          "A chain break cannot be localised",
+          "A class-1 payload leaves the device",
+          "The verifier needs a network or an account"
+        ],
+        "title": "Verifiable Knowledge Pipeline",
+        "whyNow": "The mobile surface must prove the same trust chain as the desktop Coordinator."
+      },
+      "prev": "76d9b2c89c5c2cd7c0f296534f2a4ed52eebf898b1513f406c05369081811a83",
+      "schema": "origin.event/v1",
+      "seq": 3,
+      "type": "charter.proposed"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:03.000Z",
+      "dataClass": 0,
+      "hash": "90ca90e0b180522cc0f842eb78d7a14bde3f98abb35ebc06d07dae7ed1a496e6",
+      "payload": {
+        "charter": "CH-0001",
+        "decision": "approve",
+        "gate": "frame",
+        "packet": "KN-0000",
+        "signer": "principal"
+      },
+      "prev": "2e40da52a3541a40b921a202ac7a5b44ef8cb035537dbe565ba3c4590de12005",
+      "schema": "origin.event/v1",
+      "seq": 4,
+      "type": "charter.approved"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:04.000Z",
+      "dataClass": 0,
+      "hash": "edc30c598146a46b162a70cf5caed383f5211fb83dc6673d93658081486da94f",
+      "payload": {
+        "charter": "CH-0001",
+        "claim": "CL-0001",
+        "confidence": 0.7,
+        "falsifier": "The verifier accepts a tampered hash, or a valid chain fails without a network.",
+        "limitations": [
+          "Demo workspace, one device class."
+        ],
+        "statement": "The portable Rust core verifies the OriginLabs v1 ledger offline on Android.",
+        "status": "proposed",
+        "supersedes": null,
+        "type": "engineering"
+      },
+      "prev": "90ca90e0b180522cc0f842eb78d7a14bde3f98abb35ebc06d07dae7ed1a496e6",
+      "schema": "origin.event/v1",
+      "seq": 5,
+      "type": "claim.created"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:05.000Z",
+      "dataClass": 0,
+      "hash": "2a0c202af58b32d5101832495c99b01389b3b5828387b851206c360b50f11751",
+      "payload": {
+        "adversarial": false,
+        "claim": "CL-0001",
+        "evidence": "EV-0001",
+        "grade": "E1",
+        "independent": false,
+        "kind": "literature",
+        "method": "Read the v1 envelope and canonical JSON rules in SPECS.md §0.5.",
+        "recordedBy": "principal",
+        "reproduces": false,
+        "result": "The body fields and SHA-256 rule are specified normatively.",
+        "source": {
+          "url": "https://github.com/OriginLabs1/OriginLabs"
+        }
+      },
+      "prev": "edc30c598146a46b162a70cf5caed383f5211fb83dc6673d93658081486da94f",
+      "schema": "origin.event/v1",
+      "seq": 6,
+      "type": "evidence.recorded"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:06.000Z",
+      "dataClass": 0,
+      "hash": "a527847f9ee1c402869586c2d04e953a5384efc797d0408b924c1444529abcbe",
+      "payload": {
+        "claim": "CL-0001",
+        "evidence": [
+          "EV-0001"
+        ],
+        "from": "proposed",
+        "reason": "The envelope is specified; a replay is next.",
+        "to": "investigating"
+      },
+      "prev": "2a0c202af58b32d5101832495c99b01389b3b5828387b851206c360b50f11751",
+      "schema": "origin.event/v1",
+      "seq": 7,
+      "type": "claim.transitioned"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:07.000Z",
+      "dataClass": 0,
+      "hash": "a8f7d27cd280b715ccec9f572fed4da9484bbd1b493acd8870e502a8f9942dbb",
+      "payload": {
+        "adversarial": false,
+        "claim": "CL-0001",
+        "evidence": "EV-0002",
+        "grade": "E2",
+        "independent": false,
+        "kind": "experiment",
+        "limitations": [
+          "Replay is on the same operator and device family."
+        ],
+        "method": "Compile the core to wasm32, build a v1 event, verify the resulting JSONL, then alter one payload byte.",
+        "recordedBy": "principal",
+        "reproduces": true,
+        "result": "The valid chain returned ok:true; the altered chain returned ok:false at seq 1 with a hash mismatch.",
+        "run": "RN-0001",
+        "source": {
+          "artifact": "origin_core.wasm",
+          "sha256": "b27604b3eeb11b1b4cb375e6ffdecced6393c47b356e86de8e91d9b9cdc9a8bb"
+        }
+      },
+      "prev": "a527847f9ee1c402869586c2d04e953a5384efc797d0408b924c1444529abcbe",
+      "schema": "origin.event/v1",
+      "seq": 8,
+      "type": "evidence.recorded"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:08.000Z",
+      "dataClass": 0,
+      "hash": "ae46d3eaf223e0ad2178ae94c9ae004449515db7730a0b5a84efa5b8174b02dd",
+      "payload": {
+        "claim": "CL-0001",
+        "evidence": [
+          "EV-0002"
+        ],
+        "from": "investigating",
+        "reason": "E2 evidence with a replayable wasm artifact.",
+        "to": "supported"
+      },
+      "prev": "a8f7d27cd280b715ccec9f572fed4da9484bbd1b493acd8870e502a8f9942dbb",
+      "schema": "origin.event/v1",
+      "seq": 9,
+      "type": "claim.transitioned"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:09.000Z",
+      "dataClass": 0,
+      "hash": "207274734bd2084d7b7eae7a35e9601a9e2360fbebabfa44a234270d8b09332f",
+      "payload": {
+        "charter": "CH-0001",
+        "decision": "approve",
+        "gate": "frame",
+        "packet": "KN-0000",
+        "reasons": [
+          "Falsifiable question, explicit stop conditions and a zero-cost budget."
+        ],
+        "signers": [
+          "principal"
+        ]
+      },
+      "prev": "ae46d3eaf223e0ad2178ae94c9ae004449515db7730a0b5a84efa5b8174b02dd",
+      "schema": "origin.event/v1",
+      "seq": 10,
+      "type": "gate.decided"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:10.000Z",
+      "dataClass": 0,
+      "hash": "4a3532ecc6b8828826054faeadcfa2a678f9cc641f4339ffb2afece3fc5f34d6",
+      "payload": {
+        "charter": "CH-0001",
+        "claim": "CL-0002",
+        "confidence": 0.6,
+        "falsifier": "A required workflow demands a remote class-2 call, or the policy test allows one.",
+        "limitations": [
+          "Policy claim about the default path, not every deployment."
+        ],
+        "statement": "No v0.0.1 workflow needs remote inference for class-2 data.",
+        "status": "proposed",
+        "supersedes": null,
+        "type": "analytical"
+      },
+      "prev": "207274734bd2084d7b7eae7a35e9601a9e2360fbebabfa44a234270d8b09332f",
+      "schema": "origin.event/v1",
+      "seq": 11,
+      "type": "claim.created"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:11.000Z",
+      "dataClass": 0,
+      "hash": "0193df0f42af6d02b41bc308fe2780573f6b10fdaa5e85f2c66b2d786dd012e2",
+      "payload": {
+        "adversarial": false,
+        "claim": "CL-0002",
+        "evidence": "EV-0003",
+        "grade": "E1",
+        "independent": false,
+        "kind": "review",
+        "method": "Read the data-class egress table in SPECS.md §0.4.",
+        "recordedBy": "principal",
+        "reproduces": false,
+        "result": "Class 2 is local-only by default; remote inference requires an explicit logged exception.",
+        "source": {
+          "url": "https://github.com/OriginLabs1/OriginLabs"
+        }
+      },
+      "prev": "4a3532ecc6b8828826054faeadcfa2a678f9cc641f4339ffb2afece3fc5f34d6",
+      "schema": "origin.event/v1",
+      "seq": 12,
+      "type": "evidence.recorded"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:12.000Z",
+      "dataClass": 0,
+      "hash": "dd9188cf8f8b58411ec2a69591479e5c7709ca4969955af01eabb062e24f924a",
+      "payload": {
+        "claim": "CL-0002",
+        "evidence": [
+          "EV-0003"
+        ],
+        "from": "proposed",
+        "reason": "The policy text is traceable; adversarial policy tests are next.",
+        "to": "investigating"
+      },
+      "prev": "0193df0f42af6d02b41bc308fe2780573f6b10fdaa5e85f2c66b2d786dd012e2",
+      "schema": "origin.event/v1",
+      "seq": 13,
+      "type": "claim.transitioned"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:13.000Z",
+      "dataClass": 0,
+      "hash": "0985ae4d542613fc0198667a945ffc49a69d3824a6721f5b006a9b03d29b64e4",
+      "payload": {
+        "artifact": "KN-0001",
+        "claims": [
+          "CL-0002"
+        ],
+        "kind": "negative-result",
+        "license": "MIT",
+        "limitations": [
+          "Synthetic policy test, not a field study."
+        ],
+        "maintainer": "principal",
+        "provenance": {
+          "commits": [],
+          "models": [],
+          "runs": []
+        },
+        "reuse": "internal",
+        "summary": "The mobile policy check rejects a remote route for class-2 data before any model call. The negative result is kept as a first-class artifact.",
+        "title": "A remote-only class-2 route was refused"
+      },
+      "prev": "dd9188cf8f8b58411ec2a69591479e5c7709ca4969955af01eabb062e24f924a",
+      "schema": "origin.event/v1",
+      "seq": 14,
+      "type": "artifact.published"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:14.000Z",
+      "dataClass": 0,
+      "hash": "fec318da3d896f07978a6305760424e7f03f1c14a008a5eec5cd79a2f4a98957",
+      "payload": {
+        "claim": "CL-0001",
+        "incident": "IN-0001",
+        "severity": "low",
+        "status": "contained",
+        "summary": "A deliberately altered byte in the demo ledger was rejected at seq 1.",
+        "title": "Tamper probe detected at the expected sequence"
+      },
+      "prev": "0985ae4d542613fc0198667a945ffc49a69d3824a6721f5b006a9b03d29b64e4",
+      "schema": "origin.event/v1",
+      "seq": 15,
+      "type": "incident.opened"
+    },
+    {
+      "actor": "principal",
+      "at": "2026-11-13T08:00:15.000Z",
+      "dataClass": 0,
+      "hash": "9d81771fec4481ff8a5d0466cd80ab6012e1041ecdfedc0067b8b4aee9e271e9",
+      "payload": {
+        "correction": "CO-0001",
+        "evidence": "EV-0003",
+        "reason": "Narrowed to the v0.0.1 policy default; it is not a claim about all deployments.",
+        "target": "CL-0002"
+      },
+      "prev": "fec318da3d896f07978a6305760424e7f03f1c14a008a5eec5cd79a2f4a98957",
+      "schema": "origin.event/v1",
+      "seq": 16,
+      "type": "correction.appended"
+    }
+  ],
+  "meta": {
+    "exportedAt": "2026-11-13T12:00:00.000Z",
+    "eventCount": 16,
+    "head": "9d81771fec4481ff8a5d0466cd80ab6012e1041ecdfedc0067b8b4aee9e271e9",
+    "ledgerSha256": "b9f96b71a00f3005049e29b9e1d88bdaa1258ed7a051fc0cf71b6e99a0aefd43",
+    "note": "Synthetic demo. Every event is built and verified by the Rust core."
+  }
+}

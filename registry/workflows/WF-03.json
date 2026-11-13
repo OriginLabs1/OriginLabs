@@ -1,0 +1,31 @@
+{
+  "id": "WF-03",
+  "kind": "workflow",
+  "name": "replicate",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "An E2 evidence record nominated for replication.",
+  "stages": [
+    "select",
+    "rebuild",
+    "rerun",
+    "compare",
+    "verdict"
+  ],
+  "gates": [],
+  "budgets": {
+    "wall_clock": "2w",
+    "usd": 40,
+    "tokens": 1000000
+  },
+  "checkpoints": [
+    "after:rebuild",
+    "after:rerun"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "EV",
+    "KN"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-03)"
+}

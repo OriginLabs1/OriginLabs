@@ -1,0 +1,33 @@
+{
+  "id": "MD-qwen3.5-2b",
+  "kind": "model",
+  "name": "Qwen3.5 2B",
+  "family": "qwen3.5",
+  "tier": "T1",
+  "params": "2B",
+  "active_params": "2B",
+  "context": 32768,
+  "modalities": [
+    "text"
+  ],
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "license": "Apache-2.0",
+  "license_class": "OSI",
+  "license_verified": false,
+  "source": "https://huggingface.co/",
+  "digest": null,
+  "serving": [
+    "ollama",
+    "llama.cpp"
+  ],
+  "evals": {},
+  "cost_per_1k_tasks_usd": 0,
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "status": "probation",
+  "admitted": null,
+  "reviewed": "2026-11-13",
+  "notes": "Constrained-device workhorse; T1 entry.",
+  "spec_ref": "SPECS.md §2.6"
+}

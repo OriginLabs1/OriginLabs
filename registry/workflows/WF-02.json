@@ -1,0 +1,37 @@
+{
+  "id": "WF-02",
+  "kind": "workflow",
+  "name": "experiment",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "An approved charter.",
+  "stages": [
+    "design",
+    "preregister",
+    "build",
+    "run",
+    "analyze",
+    "verify",
+    "risk"
+  ],
+  "gates": [
+    "prove"
+  ],
+  "budgets": {
+    "wall_clock": "6w",
+    "usd": 150,
+    "tokens": 5000000
+  },
+  "checkpoints": [
+    "after:preregister",
+    "after:run",
+    "after:verify"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "RN",
+    "EV",
+    "KN"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-02)"
+}

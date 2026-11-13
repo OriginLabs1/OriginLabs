@@ -1,0 +1,34 @@
+{
+  "id": "SK-10",
+  "kind": "skill",
+  "name": "package.transfer",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Move a validated result out of the lab responsibly.",
+  "trigger": "A knowledge artifact at E3+.",
+  "inputs": [
+    "artifact",
+    "license"
+  ],
+  "outputs": [
+    "transfer_package"
+  ],
+  "tools": [
+    "TL-03",
+    "TL-05",
+    "TL-16"
+  ],
+  "evidence_bar": "E3 (E4 for high risk)",
+  "guards": [
+    "named owner required",
+    "no license ambiguity"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK10-01",
+      "pass": "recipient uses the package without private assistance"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-10)"
+}

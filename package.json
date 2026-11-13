@@ -1,0 +1,26 @@
+{
+  "name": "originlabs",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "OriginLabs v0.0.1 — local-first, FOSS-only research ledger and capability registry",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "origin-ledger": "./bin/origin-ledger.mjs"
+  },
+  "scripts": {
+    "verify": "node bin/origin-ledger.mjs verify",
+    "head": "node bin/origin-ledger.mjs head",
+    "test": "node --test",
+    "seed": "node scripts/seed-registry.mjs",
+    "check": "node scripts/seed-registry.mjs --check && node --test && node bin/origin-ledger.mjs verify",
+    "mobile:test": "cd mobile && node --test test/*.test.mjs",
+    "mobile:core": "cd mobile && ./scripts/build-wasm.sh",
+    "mobile:web": "cd mobile && node scripts/gen-icons.mjs && node scripts/build-web.mjs",
+    "mobile:apk": "cd mobile && ./scripts/build-apk.sh",
+    "mobile:release": "cd mobile && node scripts/release.mjs"
+  }
+}

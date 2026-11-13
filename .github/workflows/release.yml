@@ -1,0 +1,123 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      ORIGINLABS_STORE_PASSWORD: ${{ secrets.ORIGINLABS_STORE_PASSWORD }}
+      ORIGINLABS_KEY_PASSWORD: ${{ secrets.ORIGINLABS_KEY_PASSWORD }}
+    steps:
+      - name: Check out the tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Rust stable with wasm32
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Android CLI tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends aapt zipalign apksigner zip unzip curl
+
+      - name: Platform jar and D8
+        run: |
+          mkdir -p mobile/toolchain
+          curl -sSL -o mobile/toolchain/android-34.jar \
+            https://raw.githubusercontent.com/Sable/android-platforms/master/android-34/android.jar
+          curl -sSL -o mobile/toolchain/r8.jar \
+            https://dl.google.com/dl/android/maven2/com/android/tools/r8/8.9.35/r8-8.9.35.jar
+
+      - name: Restore the release keystore
+        env:
+          KEYSTORE: ${{ secrets.ORIGINLABS_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$KEYSTORE" ]; then
+            echo "Missing ORIGINLABS_KEYSTORE_BASE64." >&2
+            exit 1
+          fi
+          if [ -z "$ORIGINLABS_STORE_PASSWORD" ]; then
+            echo "Missing ORIGINLABS_STORE_PASSWORD." >&2
+            exit 1
+          fi
+          mkdir -p mobile/keys
+          chmod 700 mobile/keys
+          printf '%s' "$KEYSTORE" | base64 -d > mobile/keys/originlabs.p12
+          test -s mobile/keys/originlabs.p12
+
+      - name: Check the tag matches the app version
+        run: |
+          VERSION=$(sed -n 's/.*android:versionName="\([^"]*\)".*/\1/p' mobile/app/src/main/AndroidManifest.xml)
+          echo "app version: $VERSION"
+          echo "tag:         ${GITHUB_REF_NAME}"
+          test "${GITHUB_REF_NAME}" = "v$VERSION"
+
+      - name: Build the Rust core
+        working-directory: mobile
+        run: ./scripts/build-wasm.sh
+
+      - name: Build the web surface
+        working-directory: mobile
+        run: |
+          node scripts/gen-icons.mjs
+          node scripts/build-web.mjs
+
+      - name: Build and sign the APK
+        working-directory: mobile
+        run: ./scripts/build-apk.sh
+
+      - name: Run the test suite against the real artifacts
+        working-directory: mobile
+        run: node --test test/*.test.mjs
+
+      - name: Assemble release assets, checksums and SBOM
+        working-directory: mobile
+        run: node scripts/release.mjs
+
+      - name: Verify checksums before publishing
+        working-directory: mobile/release
+        run: sha256sum -c SHA256SUMS
+
+      - name: Select the release notes
+        run: |
+          NOTES="mobile/docs/RELEASE-NOTES-${GITHUB_REF_NAME#v}.md"
+          if [ -f "$NOTES" ]; then
+            cp "$NOTES" /tmp/release-notes.md
+          else
+            printf 'OriginLabs %s\n\nSee SHA256SUMS and release-manifest.json in the assets.\n' "$GITHUB_REF_NAME" > /tmp/release-notes.md
+          fi
+
+      - name: Publish the GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: OriginLabs ${{ github.ref_name }}
+          body_path: /tmp/release-notes.md
+          files: mobile/release/*
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,264 @@
+{
+  "schema": "origin.registry/v1",
+  "version": "0.0.1",
+  "generated": "2026-11-13",
+  "policy": {
+    "foss_only": true,
+    "zero_cost": true,
+    "default_data_class": 0,
+    "agents": "ACP-compatible, FOSS, self-hostable"
+  },
+  "counts": {
+    "skills": 13,
+    "tools": 20,
+    "workflows": 8,
+    "models": 8
+  },
+  "entries": [
+    {
+      "id": "SK-01",
+      "kind": "skill",
+      "path": "skills/SK-01.json"
+    },
+    {
+      "id": "SK-02",
+      "kind": "skill",
+      "path": "skills/SK-02.json"
+    },
+    {
+      "id": "SK-03",
+      "kind": "skill",
+      "path": "skills/SK-03.json"
+    },
+    {
+      "id": "SK-04",
+      "kind": "skill",
+      "path": "skills/SK-04.json"
+    },
+    {
+      "id": "SK-05",
+      "kind": "skill",
+      "path": "skills/SK-05.json"
+    },
+    {
+      "id": "SK-06",
+      "kind": "skill",
+      "path": "skills/SK-06.json"
+    },
+    {
+      "id": "SK-07",
+      "kind": "skill",
+      "path": "skills/SK-07.json"
+    },
+    {
+      "id": "SK-08",
+      "kind": "skill",
+      "path": "skills/SK-08.json"
+    },
+    {
+      "id": "SK-09",
+      "kind": "skill",
+      "path": "skills/SK-09.json"
+    },
+    {
+      "id": "SK-10",
+      "kind": "skill",
+      "path": "skills/SK-10.json"
+    },
+    {
+      "id": "SK-11",
+      "kind": "skill",
+      "path": "skills/SK-11.json"
+    },
+    {
+      "id": "SK-12",
+      "kind": "skill",
+      "path": "skills/SK-12.json"
+    },
+    {
+      "id": "SK-13",
+      "kind": "skill",
+      "path": "skills/SK-13.json"
+    },
+    {
+      "id": "TL-01",
+      "kind": "tool",
+      "path": "tools/TL-01.json"
+    },
+    {
+      "id": "TL-02",
+      "kind": "tool",
+      "path": "tools/TL-02.json"
+    },
+    {
+      "id": "TL-03",
+      "kind": "tool",
+      "path": "tools/TL-03.json"
+    },
+    {
+      "id": "TL-04",
+      "kind": "tool",
+      "path": "tools/TL-04.json"
+    },
+    {
+      "id": "TL-05",
+      "kind": "tool",
+      "path": "tools/TL-05.json"
+    },
+    {
+      "id": "TL-06",
+      "kind": "tool",
+      "path": "tools/TL-06.json"
+    },
+    {
+      "id": "TL-07",
+      "kind": "tool",
+      "path": "tools/TL-07.json"
+    },
+    {
+      "id": "TL-08",
+      "kind": "tool",
+      "path": "tools/TL-08.json"
+    },
+    {
+      "id": "TL-09",
+      "kind": "tool",
+      "path": "tools/TL-09.json"
+    },
+    {
+      "id": "TL-10",
+      "kind": "tool",
+      "path": "tools/TL-10.json"
+    },
+    {
+      "id": "TL-11",
+      "kind": "tool",
+      "path": "tools/TL-11.json"
+    },
+    {
+      "id": "TL-12",
+      "kind": "tool",
+      "path": "tools/TL-12.json"
+    },
+    {
+      "id": "TL-13",
+      "kind": "tool",
+      "path": "tools/TL-13.json"
+    },
+    {
+      "id": "TL-14",
+      "kind": "tool",
+      "path": "tools/TL-14.json"
+    },
+    {
+      "id": "TL-15",
+      "kind": "tool",
+      "path": "tools/TL-15.json"
+    },
+    {
+      "id": "TL-16",
+      "kind": "tool",
+      "path": "tools/TL-16.json"
+    },
+    {
+      "id": "TL-17",
+      "kind": "tool",
+      "path": "tools/TL-17.json"
+    },
+    {
+      "id": "TL-18",
+      "kind": "tool",
+      "path": "tools/TL-18.json"
+    },
+    {
+      "id": "TL-19",
+      "kind": "tool",
+      "path": "tools/TL-19.json"
+    },
+    {
+      "id": "TL-20",
+      "kind": "tool",
+      "path": "tools/TL-20.json"
+    },
+    {
+      "id": "WF-01",
+      "kind": "workflow",
+      "path": "workflows/WF-01.json"
+    },
+    {
+      "id": "WF-02",
+      "kind": "workflow",
+      "path": "workflows/WF-02.json"
+    },
+    {
+      "id": "WF-03",
+      "kind": "workflow",
+      "path": "workflows/WF-03.json"
+    },
+    {
+      "id": "WF-04",
+      "kind": "workflow",
+      "path": "workflows/WF-04.json"
+    },
+    {
+      "id": "WF-05",
+      "kind": "workflow",
+      "path": "workflows/WF-05.json"
+    },
+    {
+      "id": "WF-06",
+      "kind": "workflow",
+      "path": "workflows/WF-06.json"
+    },
+    {
+      "id": "WF-07",
+      "kind": "workflow",
+      "path": "workflows/WF-07.json"
+    },
+    {
+      "id": "WF-08",
+      "kind": "workflow",
+      "path": "workflows/WF-08.json"
+    },
+    {
+      "id": "MD-qwen3.5-0.8b",
+      "kind": "model",
+      "path": "models/MD-qwen3.5-0.8b.json"
+    },
+    {
+      "id": "MD-qwen3.5-2b",
+      "kind": "model",
+      "path": "models/MD-qwen3.5-2b.json"
+    },
+    {
+      "id": "MD-qwen3.5-4b",
+      "kind": "model",
+      "path": "models/MD-qwen3.5-4b.json"
+    },
+    {
+      "id": "MD-qwen3.5-9b",
+      "kind": "model",
+      "path": "models/MD-qwen3.5-9b.json"
+    },
+    {
+      "id": "MD-gemma4-4b",
+      "kind": "model",
+      "path": "models/MD-gemma4-4b.json"
+    },
+    {
+      "id": "MD-lfm3-1.7b",
+      "kind": "model",
+      "path": "models/MD-lfm3-1.7b.json"
+    },
+    {
+      "id": "MD-granite4.2",
+      "kind": "model",
+      "path": "models/MD-granite4.2.json"
+    },
+    {
+      "id": "MD-minicpm5-2b",
+      "kind": "model",
+      "path": "models/MD-minicpm5-2b.json"
+    }
+  ]
+}

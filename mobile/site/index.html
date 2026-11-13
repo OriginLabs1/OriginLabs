@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>OriginLabs v0.0.1 — a lab that can prove itself</title>
+    <meta
+      name="description"
+      content="Local-first, FOSS-only research ledger for Android. Rust trust core, append-only events, zero permissions, zero network, no account."
+    />
+    <meta name="theme-color" content="#07080a" />
+    <meta property="og:title" content="OriginLabs v0.0.1" />
+    <meta
+      property="og:description"
+      content="An offline research ledger with a Rust trust core. Zero permissions, zero network, no account."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="app/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="app/icons/icon-192.png" />
+    <style>
+      :root {
+        --bg: #07080a;
+        --bg-2: #0b0d11;
+        --surface: #111419;
+        --surface-2: #161a21;
+        --line: #252b36;
+        --line-soft: #1b2029;
+        --ink: #f3f1ea;
+        --ink-2: #c9cbca;
+        --muted: #8d95a3;
+        --faint: #626b79;
+        --acid: #d8ff58;
+        --teal: #66e3c4;
+        --amber: #ffc76b;
+        --red: #ff7a85;
+        --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+        --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+        --radius: 20px;
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--bg); scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(900px 500px at 12% -8%, rgba(216, 255, 88, 0.09), transparent 65%),
+          radial-gradient(700px 500px at 92% 4%, rgba(102, 227, 196, 0.07), transparent 60%),
+          var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection { background: var(--acid); color: #08090b; }
+      a { color: var(--acid); text-decoration: none; }
+      a:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+      .mono { font-family: var(--mono); }
+      .kicker {
+        margin: 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      header.site {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 26px 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); }
+      .brand svg { width: 38px; height: 38px; }
+      .brand b { font-family: var(--display); font-size: 20px; font-weight: 600; letter-spacing: 0.01em; }
+      .brand span {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--accent, var(--acid));
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 2px 8px;
+        letter-spacing: 0.08em;
+      }
+      nav.top { display: flex; gap: 22px; font-size: 14px; }
+      nav.top a { color: var(--ink-2); }
+      nav.top a:hover { color: var(--ink); }
+
+      .hero { padding: 76px 0 56px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+      .hero h1 {
+        margin: 14px 0 18px;
+        font-family: var(--display);
+        font-size: clamp(38px, 5.4vw, 64px);
+        line-height: 1.02;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+      }
+      .hero h1 em { font-style: normal; color: var(--acid); }
+      .hero p.lede { margin: 0 0 26px; max-width: 34em; color: var(--ink-2); font-size: 17px; }
+      .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 20px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 600;
+        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+      }
+      .btn:hover { text-decoration: none; transform: translateY(-1px); border-color: #39414f; }
+      .btn.primary { background: var(--acid); border-color: var(--acid); color: #0a0b0d; }
+      .btn.primary:hover { background: #e4ff7a; }
+      .btn.ghost { background: transparent; }
+      .btn small { font-weight: 500; color: inherit; opacity: 0.7; }
+      .hero-note { margin: 18px 0 0; font-size: 12.5px; color: var(--faint); }
+
+      .device {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: linear-gradient(180deg, #0d1015, #090b0e);
+        padding: 20px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+      }
+      .device::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 27px;
+        padding: 1px;
+        background: linear-gradient(140deg, rgba(216, 255, 88, 0.5), transparent 40%, rgba(102, 227, 196, 0.35));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+      .device-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+      .device-top .badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--teal); }
+      .device h2 { margin: 0; font-family: var(--display); font-size: 30px; font-weight: 500; color: var(--acid); }
+      .device .sub { margin: 4px 0 16px; font-size: 13px; color: var(--muted); }
+      .chain { display: grid; gap: 6px; font-family: var(--mono); font-size: 11.5px; }
+      .chain div {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 10px;
+        border: 1px solid var(--line-soft);
+        border-radius: 9px;
+        background: var(--surface);
+        color: var(--ink-2);
+      }
+      .chain div span:last-child { color: var(--faint); }
+      .chain div:first-child { color: var(--acid); border-color: rgba(216, 255, 88, 0.3); }
+      .verify-line {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line-soft);
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .verify-line b { color: var(--teal); font-weight: 500; }
+
+      .strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--line);
+      }
+      .strip div { background: var(--bg-2); padding: 22px; }
+      .strip b { display: block; font-family: var(--display); font-size: 30px; font-weight: 500; }
+      .strip span { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+      .strip div:nth-child(1) b { color: var(--acid); }
+      .strip div:nth-child(2) b { color: var(--teal); }
+      .strip div:nth-child(3) b { color: var(--amber); }
+      .strip div:nth-child(4) b { color: var(--ink); }
+
+      section { padding: 72px 0; border-top: 1px solid var(--line-soft); }
+      section.first { border-top: 0; padding-top: 56px; }
+      .section-head { max-width: 46em; margin-bottom: 34px; }
+      .section-head h2 {
+        margin: 10px 0 12px;
+        font-family: var(--display);
+        font-size: clamp(28px, 3.4vw, 40px);
+        line-height: 1.1;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+      .section-head p { margin: 0; color: var(--ink-2); }
+
+      .boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        padding: 24px;
+      }
+      .card h3 { margin: 0 0 8px; font-size: 16px; }
+      .card p { margin: 0; font-size: 14px; color: var(--ink-2); }
+      .card .mono { font-size: 11.5px; color: var(--faint); word-break: break-all; }
+      .flow { display: grid; gap: 8px; margin-top: 16px; }
+      .flow div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: var(--surface-2);
+        border: 1px solid var(--line-soft);
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--ink-2);
+      }
+      .flow i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--acid);
+        flex: none;
+      }
+      .flow div:last-child i { background: var(--teal); }
+      .flow b { color: var(--ink); font-weight: 500; }
+      .note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+      .note strong { color: var(--ink-2); font-weight: 600; }
+
+      .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .feature {
+        border: 1px solid var(--line-soft);
+        border-radius: 16px;
+        padding: 22px;
+        background: linear-gradient(180deg, var(--surface), rgba(17, 20, 25, 0.4));
+      }
+      .feature h3 { margin: 0 0 7px; font-size: 15px; }
+      .feature p { margin: 0; font-size: 13.5px; color: var(--muted); }
+      .feature .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--faint); text-transform: uppercase; display: block; margin-bottom: 12px; }
+
+      .verify-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items: start; }
+      pre {
+        margin: 0;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: #090b0e;
+        color: var(--ink-2);
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.7;
+        overflow: auto;
+      }
+      pre .c { color: var(--faint); }
+      pre .g { color: var(--acid); }
+      .facts { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+      .facts li {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 12px 14px;
+        border: 1px solid var(--line-soft);
+        border-radius: 11px;
+        background: var(--surface);
+        font-size: 13.5px;
+        color: var(--ink-2);
+      }
+      .facts li b { color: var(--ink); font-weight: 600; }
+      .facts li::before { content: "✓"; color: var(--teal); font-weight: 700; }
+      .facts li.limit::before { content: "!"; color: var(--amber); }
+
+      .channels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .channel {
+        display: flex;
+        gap: 14px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--ink);
+      }
+      .channel:hover { text-decoration: none; border-color: #39414f; background: var(--surface-2); }
+      .channel .n { font-family: var(--mono); color: var(--acid); font-size: 12px; }
+      .channel b { display: block; margin-bottom: 3px; font-size: 14.5px; }
+      .channel span { display: block; font-size: 12.5px; color: var(--muted); }
+      .channel .arrow { margin-left: auto; color: var(--faint); }
+
+      footer.site {
+        padding: 40px 0 64px;
+        border-top: 1px solid var(--line-soft);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 30px;
+        justify-content: space-between;
+        font-size: 12.5px;
+        color: var(--faint);
+      }
+      footer.site .links { display: flex; flex-wrap: wrap; gap: 18px; }
+      footer.site a { color: var(--muted); }
+
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 52px; }
+        .boundary, .verify-grid { grid-template-columns: 1fr; }
+        .features { grid-template-columns: repeat(2, 1fr); }
+        nav.top { display: none; }
+      }
+      @media (max-width: 620px) {
+        .wrap { width: calc(100% - 32px); }
+        .strip { grid-template-columns: 1fr 1fr; }
+        .features, .channels { grid-template-columns: 1fr; }
+        .hero { padding-top: 44px; }
+        .cta .btn { width: 100%; justify-content: center; }
+        section { padding: 54px 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .btn { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="site">
+        <a class="brand" href="./">
+          <svg viewBox="0 0 512 512" aria-hidden="true">
+            <rect width="512" height="512" rx="112" fill="#07080a" />
+            <circle cx="256" cy="256" r="134" fill="none" stroke="#d8ff58" stroke-width="27" stroke-linecap="round" stroke-dasharray="630 212" transform="rotate(-38 256 256)" />
+            <circle cx="256" cy="256" r="43" fill="#d8ff58" />
+            <circle cx="382" cy="176" r="25" fill="#66e3c4" />
+          </svg>
+          <b>OriginLabs</b>
+          <span>v0.0.1</span>
+        </a>
+        <nav class="top">
+          <a href="#rust">Rust core</a>
+          <a href="#verify">Verify</a>
+          <a href="#install">Install</a>
+          <a href="https://github.com/OriginLabs1/OriginLabs">Source</a>
+        </nav>
+      </header>
+
+      <main>
+        <div class="hero">
+          <div>
+            <p class="kicker">Local-first · FOSS only · Zero cost</p>
+            <h1>A lab that can <em>prove itself.</em></h1>
+            <p class="lede">
+              Frame a question. Make a falsifiable claim. Attach graded evidence.
+              Every step goes into an append-only hash chain built and verified by
+              a Rust core — on your phone, offline, with no account and no
+              permission.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="https://github.com/OriginLabs1/OriginLabs/releases/download/v0.0.1/OriginLabs-0.0.1.apk">
+                Download APK <small>416 KB</small>
+              </a>
+              <a class="btn" href="app/">Open the web app</a>
+              <a class="btn ghost" href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/OriginLabs1/OriginLabs">
+                Add with Obtainium
+              </a>
+            </div>
+            <p class="hero-note">
+              Android 10+ · <span class="mono">com.oneorigin.labs</span> · zero permissions ·
+              MIT licensed · checksums and SBOM in every release
+            </p>
+          </div>
+
+          <div class="device" aria-label="Ledger preview">
+            <div class="device-top">
+              <span class="mono" style="font-size: 11px; color: var(--muted)">LAB STATUS</span>
+              <span class="badge">VERIFIED</span>
+            </div>
+            <h2>Hash chain intact.</h2>
+            <p class="sub">Synthetic demo workspace · 16 events, built on-device.</p>
+            <div class="chain">
+              <div><span>#16 correction.appended</span><span>9d8177…</span></div>
+              <div><span>#15 incident.opened</span><span>4c01aa…</span></div>
+              <div><span>#14 artifact.published</span><span>1e9b02…</span></div>
+              <div><span>#13 claim.transitioned</span><span>0f7c31…</span></div>
+            </div>
+            <div class="verify-line">
+              <span>origin-core 0.0.1 · wasm32</span>
+              <b>0 network calls</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="strip">
+          <div><b>0</b><span>Android permissions</span></div>
+          <div><b>0</b><span>network clients</span></div>
+          <div><b>0</b><span>accounts or keys</span></div>
+          <div><b>49</b><span>FOSS capabilities</span></div>
+        </div>
+
+        <section id="rust" class="first">
+          <div class="section-head">
+            <p class="kicker">Trust boundary</p>
+            <h2>Rust is not a dependency. It is the proof.</h2>
+            <p>
+              Canonical JSON, SHA-256, event construction and chain verification
+              exist in one place: a <code class="mono">std</code>-only Rust crate with no
+              third-party crates. It compiles to a native CLI for tests and to
+              WebAssembly for the app.
+            </p>
+          </div>
+          <div class="boundary">
+            <div class="card">
+              <h3>One implementation, two targets</h3>
+              <p>The same source file produces both artifacts. The app refuses to run without the core; there is no JavaScript fallback for hashing.</p>
+              <div class="flow">
+                <div><i></i><span><b>origin-core</b> · native · CLI and tests</span></div>
+                <div><i></i><span><b>origin_core.wasm</b> · 345 KB · embedded as base64</span></div>
+                <div><i></i><span><b>zero imports</b> · no syscall, clock, random or network</span></div>
+              </div>
+              <p class="note">
+                wasm32 sha256<br />
+                <span class="mono">84c7e7f1a57828d3a873edd5bced9722236d3a0dd4df7fcf38eed8ee5ba3b926</span>
+              </p>
+            </div>
+            <div class="card">
+              <h3>What “verified” means</h3>
+              <p>
+                Every event’s hash is recomputed from canonical JSON, and each
+                <code class="mono">prev</code> must match the previous hash. Change one
+                byte and verification fails at that sequence.
+              </p>
+              <ul class="facts" style="margin-top: 16px">
+                <li><b>Tamper-evident:</b> the app’s Tamper test alters a copy and shows <code class="mono">ok:false</code>.</li>
+                <li class="limit"><b>Not signed:</b> principal labels are self-asserted; there is no device key yet.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <p class="kicker">How it works</p>
+            <h2>Evidence, gates and a ledger that only grows.</h2>
+            <p>No edits, no silent rewrites. Corrections are appended. Refused gates never enter the history.</p>
+          </div>
+          <div class="features">
+            <div class="feature">
+              <span class="tag">01 · Ledger</span>
+              <h3>Append-only by construction</h3>
+              <p>Charters, claims, evidence, gates, artifacts and incidents form a hash chain. The writer refuses to extend a broken chain.</p>
+            </div>
+            <div class="feature">
+              <span class="tag">02 · Evidence</span>
+              <h3>Floors, not vibes</h3>
+              <p>E1 to investigate, E2 to support, E3 to establish, E4 for high-risk work. Confidence and falsifiers are recorded with the claim.</p>
+            </div>
+            <div class="feature">
+              <span class="tag">03 · Gates</span>
+              <h3>Two humans or no transfer</h3>
+              <p>Agents can never sign a gate. A Transfer requires two distinct human signers, checked before an event is built.</p>
+            </div>
+            <div class="feature">
+              <span class="tag">04 · Data classes</span>
+              <h3>Class 2 stays a reference</h3>
+              <p>Confidential payloads may carry hashes and references, never raw content or long free text. The policy is enforced before append.</p>
+            </div>
+            <div class="feature">
+              <span class="tag">05 · Offline</span>
+              <h3>Nothing to phone home to</h3>
+              <p>No INTERNET permission, no fetch in app scripts, network loads blocked in the WebView. The PWA is cache-first.</p>
+            </div>
+            <div class="feature">
+              <span class="tag">06 · Build</span>
+              <h3>No Gradle, no AndroidX</h3>
+              <p>aapt2, javac, D8, zipalign, apksigner. Zero npm dependencies, zero Rust crates. The whole pipeline is in the repo.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="verify">
+          <div class="section-head">
+            <p class="kicker">Verification</p>
+            <h2>Check the download yourself.</h2>
+            <p>Every release ships the APK, SHA-256 sums, the signing certificate, a release manifest and a CycloneDX SBOM.</p>
+          </div>
+          <div class="verify-grid">
+            <pre><span class="c"># 1. checksums, next to the downloaded assets</span>
+sha256sum -c SHA256SUMS
+
+<span class="c"># 2. signature and signer fingerprint</span>
+apksigner verify --verbose --print-certs \
+  OriginLabs-0.0.1.apk
+
+<span class="c"># 3. in the app</span>
+Lab → Run self-test  <span class="g">→ PASS</span>
+Home → Verify chain  <span class="g">→ ok:true</span>
+Home → Tamper test   <span class="g">→ ok:false</span></pre>
+            <ul class="facts">
+              <li><b>Same signer every update.</b> Android refuses an update signed with a different key.</li>
+              <li><b>Manifest, not marketing.</b> <code class="mono">release-manifest.json</code> binds the APK, core and registry digests.</li>
+              <li><b>SBOM included.</b> CycloneDX 1.5, generated by the release script.</li>
+              <li class="limit"><b>Not bit-reproducible yet.</b> Verify the signer and checksums, not a rebuild diff.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="install">
+          <div class="section-head">
+            <p class="kicker">Distribution</p>
+            <h2>Install it your way.</h2>
+            <p>GitHub is the source of truth. There is no proprietary store, no account and no paid tier.</p>
+          </div>
+          <div class="channels">
+            <a class="channel" href="https://github.com/OriginLabs1/OriginLabs/releases/download/v0.0.1/OriginLabs-0.0.1.apk">
+              <span class="n">01</span>
+              <span><b>Android APK</b><span>Signed universal build · Android 10+ · 416 KB</span></span>
+              <span class="arrow">↓</span>
+            </a>
+            <a class="channel" href="app/">
+              <span class="n">02</span>
+              <span><b>Installable PWA</b><span>Same code in the browser, offline after first load</span></span>
+              <span class="arrow">→</span>
+            </a>
+            <a class="channel" href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/OriginLabs1/OriginLabs">
+              <span class="n">03</span>
+              <span><b>Obtainium</b><span>Automatic updates from GitHub Releases, no account</span></span>
+              <span class="arrow">→</span>
+            </a>
+            <a class="channel" href="https://github.com/OriginLabs1/OriginLabs">
+              <span class="n">04</span>
+              <span><b>Build from source</b><span>Node, Rust and five Android CLI tools</span></span>
+              <span class="arrow">→</span>
+            </a>
+          </div>
+          <p class="note" style="margin-top: 22px">
+            <strong>Note.</strong> F-Droid metadata is a draft and no listing exists yet.
+            The release page also carries the web zip, the wasm core and the native
+            core, so the same code can be inspected without installing anything.
+          </p>
+        </section>
+      </main>
+
+      <footer class="site">
+        <div>
+          <div class="mono" style="color: var(--muted); letter-spacing: 0.1em">ORIGINLABS v0.0.1</div>
+          <div style="margin-top: 6px">Local-first · FOSS only · zero cost · no telemetry · MIT</div>
+        </div>
+        <div class="links">
+          <a href="https://github.com/OriginLabs1/OriginLabs/releases/latest">Releases</a>
+          <a href="https://github.com/OriginLabs1/OriginLabs/blob/main/mobile/docs/BUILD.md">Build</a>
+          <a href="https://github.com/OriginLabs1/OriginLabs/blob/main/mobile/docs/SECURITY.md">Security</a>
+          <a href="https://github.com/OriginLabs1/OriginLabs/blob/main/mobile/docs/PRIVACY.md">Privacy</a>
+          <a href="https://github.com/OriginLabs1/OriginLabs">GitHub</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

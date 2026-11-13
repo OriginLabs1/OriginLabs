@@ -1,0 +1,32 @@
+{
+  "id": "MD-minicpm5-2b",
+  "kind": "model",
+  "name": "MiniCPM5 2B",
+  "family": "minicpm5",
+  "tier": "T1",
+  "params": "2B",
+  "active_params": "2B",
+  "context": 32768,
+  "modalities": [
+    "text"
+  ],
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "license": "MiniCPM Model License",
+  "license_class": "non-OSI",
+  "license_verified": false,
+  "source": "https://huggingface.co/",
+  "digest": null,
+  "serving": [
+    "llama.cpp"
+  ],
+  "evals": {},
+  "cost_per_1k_tasks_usd": 0,
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "status": "probation",
+  "admitted": null,
+  "reviewed": "2026-11-13",
+  "notes": "Efficiency-focused 2B contender; licence review required.",
+  "spec_ref": "SPECS.md §2.6"
+}

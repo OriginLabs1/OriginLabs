@@ -1,0 +1,33 @@
+{
+  "id": "SK-04",
+  "kind": "skill",
+  "name": "design.experiment",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Produce a protocol a stranger could run without asking questions.",
+  "trigger": "Approved charter.",
+  "inputs": [
+    "charter"
+  ],
+  "outputs": [
+    "preregistered_protocol",
+    "analysis_plan"
+  ],
+  "tools": [
+    "TL-01",
+    "TL-15"
+  ],
+  "evidence_bar": "E2-ready",
+  "guards": [
+    "no metric changes after seeing data",
+    "define failure in advance"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK04-01",
+      "pass": "clean-room operator executes the dry run without clarification"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-04)"
+}

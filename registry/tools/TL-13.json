@@ -1,0 +1,18 @@
+{
+  "id": "TL-13",
+  "kind": "tool",
+  "name": "web.fetch",
+  "version": "1.0.0",
+  "status": "active",
+  "transport": "mcp",
+  "side_effects": "network",
+  "idempotent": false,
+  "data_class_max": 0,
+  "approval": "none",
+  "failure": "retry",
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "audit": "ledger",
+  "summary": "Fetch a public URL into a quarantined channel.",
+  "spec_ref": "SPECS.md §2.3 (TL-13)"
+}

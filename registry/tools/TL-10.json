@@ -1,0 +1,18 @@
+{
+  "id": "TL-10",
+  "kind": "tool",
+  "name": "model.route",
+  "version": "1.0.0",
+  "status": "active",
+  "transport": "local",
+  "side_effects": "none",
+  "idempotent": true,
+  "data_class_max": 4,
+  "approval": "none",
+  "failure": "halt",
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "audit": "ledger",
+  "summary": "Select a free, eligible model for a task.",
+  "spec_ref": "SPECS.md §2.3 (TL-10)"
+}

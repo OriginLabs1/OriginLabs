@@ -1,0 +1,32 @@
+{
+  "id": "SK-12",
+  "kind": "skill",
+  "name": "record.decision",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Make a choice reviewable six months later.",
+  "trigger": "A decision point.",
+  "inputs": [
+    "context",
+    "options"
+  ],
+  "outputs": [
+    "decision_record"
+  ],
+  "tools": [
+    "TL-01"
+  ],
+  "evidence_bar": "linked evidence where claimed",
+  "guards": [
+    "no retroactive justification",
+    "no irreversible choice without a named risk"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK12-01",
+      "pass": "reader reconstructs the decision (4/5)"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-12)"
+}

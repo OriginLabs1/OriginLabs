@@ -1,0 +1,98 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Rust stable with wasm32
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Android CLI tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends aapt zipalign apksigner zip unzip curl
+          aapt2 version || aapt version
+          apksigner version
+
+      - name: Platform jar and D8
+        run: |
+          mkdir -p mobile/toolchain
+          curl -sSL -o mobile/toolchain/android-34.jar \
+            https://raw.githubusercontent.com/Sable/android-platforms/master/android-34/android.jar
+          curl -sSL -o mobile/toolchain/r8.jar \
+            https://dl.google.com/dl/android/maven2/com/android/tools/r8/8.9.35/r8-8.9.35.jar
+          ls -lh mobile/toolchain
+
+      - name: Repository tests
+        run: |
+          npm test
+          node scripts/seed-registry.mjs --check
+          node bin/origin-ledger.mjs verify
+
+      - name: Build Rust core (native + wasm32)
+        working-directory: mobile
+        run: ./scripts/build-wasm.sh
+
+      - name: Build web surface
+        working-directory: mobile
+        run: |
+          node scripts/gen-icons.mjs
+          SOURCE_DATE_EPOCH=1763078400 node scripts/build-web.mjs
+
+      - name: Build an unsigned APK
+        working-directory: mobile
+        run: |
+          ORIGINLABS_UNSIGNED=1 ./scripts/build-apk.sh
+
+      - name: Mobile tests
+        working-directory: mobile
+        run: node --test test/*.test.mjs
+
+      - name: Sign with a throwaway key and run the release check
+        working-directory: mobile
+        run: |
+          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/gen-keys.sh
+          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/build-apk.sh
+          node scripts/release.mjs
+          cd release && sha256sum -c SHA256SUMS
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: originlabs-ci
+          path: |
+            mobile/build/OriginLabs-0.0.1.apk
+            mobile/release/release-manifest.json
+            mobile/release/originlabs-0.0.1.cdx.json
+            mobile/release/SHA256SUMS
+          if-no-files-found: error

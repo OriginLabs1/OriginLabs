@@ -1,0 +1,33 @@
+{
+  "id": "SK-09",
+  "kind": "skill",
+  "name": "distill.artifact",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Convert work into something another person can use without us.",
+  "trigger": "A supported claim or negative result.",
+  "inputs": [
+    "claims",
+    "runs"
+  ],
+  "outputs": [
+    "knowledge_artifact"
+  ],
+  "tools": [
+    "TL-03",
+    "TL-04"
+  ],
+  "evidence_bar": "matches claim grade",
+  "guards": [
+    "no artifact without limitations",
+    "no artifact without provenance"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK09-01",
+      "pass": "outsider reproduces the headline result from the artifact"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-09)"
+}

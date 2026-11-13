@@ -1,0 +1,33 @@
+{
+  "id": "SK-07",
+  "kind": "skill",
+  "name": "assess.risk",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Decide whether work proceeds and under what constraints.",
+  "trigger": "A charter or transfer candidate.",
+  "inputs": [
+    "charter",
+    "context"
+  ],
+  "outputs": [
+    "risk_assessment",
+    "recommendation"
+  ],
+  "tools": [
+    "TL-15"
+  ],
+  "evidence_bar": "documented reasoning",
+  "guards": [
+    "it is just research is not a mitigation",
+    "high risk needs an independent reviewer"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK07-01",
+      "pass": "blind reviewer reaches the same risk class (4/5)"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-07)"
+}

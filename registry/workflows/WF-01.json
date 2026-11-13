@@ -1,0 +1,33 @@
+{
+  "id": "WF-01",
+  "kind": "workflow",
+  "name": "inquiry",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "An observation, gap or program need.",
+  "stages": [
+    "intake",
+    "observe",
+    "question",
+    "prior-art",
+    "hypothesis",
+    "charter"
+  ],
+  "gates": [
+    "frame"
+  ],
+  "budgets": {
+    "wall_clock": "6w",
+    "usd": 150,
+    "tokens": 5000000
+  },
+  "checkpoints": [
+    "after:charter"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "CH",
+    "CL"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-01)"
+}

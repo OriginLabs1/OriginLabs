@@ -1,0 +1,34 @@
+{
+  "id": "MD-gemma4-4b",
+  "kind": "model",
+  "name": "Gemma 4 4B",
+  "family": "gemma4",
+  "tier": "T1",
+  "params": "4B",
+  "active_params": "4B",
+  "context": 32768,
+  "modalities": [
+    "text",
+    "image"
+  ],
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "license": "Gemma Terms",
+  "license_class": "non-OSI",
+  "license_verified": false,
+  "source": "https://huggingface.co/",
+  "digest": null,
+  "serving": [
+    "ollama",
+    "llama.cpp"
+  ],
+  "evals": {},
+  "cost_per_1k_tasks_usd": 0,
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "status": "probation",
+  "admitted": null,
+  "reviewed": "2026-11-13",
+  "notes": "Mobile multimodal contender; licence review required.",
+  "spec_ref": "SPECS.md §2.6"
+}

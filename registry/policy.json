@@ -1,0 +1,27 @@
+{
+  "schema": "origin.policy/v1",
+  "version": "0.0.1",
+  "updated": "2026-11-13",
+  "foss_only": true,
+  "zero_cost": true,
+  "agents": {
+    "acp_required": true,
+    "foss_only": true,
+    "self_hostable": true,
+    "paid_or_account_gated": false,
+    "mandatory_telemetry": false
+  },
+  "models": {
+    "osi_required_for_active": true,
+    "non_osi_status": "probation",
+    "paid_default_path": false,
+    "local_first": true
+  },
+  "data_classes": {
+    "0": "public",
+    "1": "internal",
+    "2": "confidential",
+    "3": "restricted",
+    "4": "regulated"
+  }
+}

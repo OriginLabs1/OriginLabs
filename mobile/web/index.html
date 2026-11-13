@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>OriginLabs</title>
+  <meta name="description" content="OriginLabs v0.0.1 — a local-first, FOSS-only research ledger for Android. Rust core, no accounts, no telemetry, no network.">
+  <meta name="theme-color" content="#07080a">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="OriginLabs">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="OriginLabs">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-a"></div>
+    <div class="ambient-b"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div id="boot" class="boot" role="status" aria-live="polite">
+    <svg class="boot-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="113 38" transform="rotate(-38 32 32)"></circle>
+      <circle cx="32" cy="32" r="8" fill="currentColor"></circle>
+      <circle cx="54" cy="19" r="4.5" fill="#66e3c4"></circle>
+    </svg>
+    <div class="boot-word">ORIGINLABS</div>
+    <div id="boot-text" class="boot-text">Starting the Rust core…</div>
+  </div>
+
+  <header id="topbar" class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="11.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="54 18" transform="rotate(-38 16 16)"></circle>
+        <circle cx="16" cy="16" r="3.9" fill="currentColor"></circle>
+        <circle cx="26.7" cy="9.6" r="2.1" fill="#66e3c4"></circle>
+      </svg>
+      <span class="brand-word">ORIGINLABS</span>
+      <span class="version-pill">v0.0.1</span>
+    </div>
+    <div id="chain-pill" class="chain-pill" title="Ledger state">
+      <span id="chain-dot" class="chain-dot"></span>
+      <span id="chain-label">LOCAL</span>
+    </div>
+  </header>
+
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <nav id="tabbar" class="tabbar" aria-label="Primary">
+    <button class="tab is-active" data-action="nav" data-tab="home" aria-current="page">
+      <svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Home</span>
+    </button>
+    <button class="tab" data-action="nav" data-tab="ledger">
+      <svg class="icon" aria-hidden="true"><use href="#i-ledger"></use></svg><span>Ledger</span>
+    </button>
+    <button class="tab" data-action="nav" data-tab="claims">
+      <svg class="icon" aria-hidden="true"><use href="#i-claim"></use></svg><span>Claims</span>
+    </button>
+    <button class="tab" data-action="nav" data-tab="registry">
+      <svg class="icon" aria-hidden="true"><use href="#i-registry"></use></svg><span>Registry</span>
+    </button>
+    <button class="tab" data-action="nav" data-tab="lab">
+      <svg class="icon" aria-hidden="true"><use href="#i-lab"></use></svg><span>Lab</span>
+    </button>
+  </nav>
+
+  <div id="sheet-root"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="file-import" type="file" accept=".json,.jsonl,.txt,application/json,text/plain" hidden>
+
+  <div id="onboarding" class="onboarding" hidden>
+    <div class="onboarding-inner">
+      <div class="onboarding-mark" aria-hidden="true">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="orbit-core"></div>
+        <div class="orbit-dot"></div>
+      </div>
+      <p class="kicker">ORIGINLABS · v0.0.1</p>
+      <h1 class="onboarding-title">A lab that<br>can prove itself.</h1>
+      <p class="onboarding-copy">
+        A local-first research ledger for Android. Every claim, evidence record and gate is an
+        append-only event, hashed and verified by a Rust core on your device.
+      </p>
+      <div class="doctrine-chips">
+        <span>FOSS only</span><span>Zero cost</span><span>No account</span><span>No telemetry</span>
+      </div>
+      <div class="onboarding-actions">
+        <button class="btn btn-primary btn-block" data-action="onboard-demo">
+          <svg class="icon" aria-hidden="true"><use href="#i-lab"></use></svg>
+          Open the demo lab
+        </button>
+        <button class="btn btn-ghost btn-block" data-action="onboard-empty">Start an empty lab</button>
+        <button class="btn btn-quiet btn-block" data-action="onboard-import">
+          <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>
+          Import a backup
+        </button>
+      </div>
+      <p class="onboarding-foot">
+        The demo contains synthetic research data. It never leaves this device.
+      </p>
+    </div>
+  </div>
+
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-ledger" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 9h8M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-claim" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-registry" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></symbol>
+    <symbol id="i-lab" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.2 8.6A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-3.4L14 9V3"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5.5c0 5-3.4 8.2-8 9.5-4.6-1.3-8-4.5-8-9.5V6z"/><path d="m8.5 12 2.4 2.4 4.6-4.8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 22 20H2z"/><path d="M12 9v5M12 17.2v.1"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M15 9V5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15H9"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 11a8 8 0 1 1 2.4 5.7"/><path d="M4 4v7h7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9.5 9.5h5v5h-5zM12 2v4M12 18v4M2 12h4M18 12h4M5.5 2v4M18.5 2v4M5.5 18v4M18.5 18v4"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 11h6M9 15h6"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4M6 4h11l-2 4 2 4H6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M14 7l5 5-5 5"/></symbol>
+    <symbol id="i-evidence" viewBox="0 0 24 24"><path d="M8 3h8v4l4 12a2 2 0 0 1-1.9 2.6H5.9A2 2 0 0 1 4 19L8 7z"/><path d="M7 13h10M10 3v4M14 3v4"/></symbol>
+    <symbol id="i-gate" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16M8 21V9h8v12M4 21h16"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+    <symbol id="i-correction" viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-2M20 15a8 8 0 0 1-14 2"/><path d="M18 3v4h-4M6 21v-4h4"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.3 10.8 7.4-4.3M8.3 13.2l7.4 4.3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.1"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="m11 11 8-8M16 3l3 3M14 5l3 3"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 8.5A15 15 0 0 1 12 5c2.2 0 4.3.5 6.2 1.4M6.5 12a10 10 0 0 1 5.5-1.6c1 0 2 .2 2.9.5M9.8 15.4a5 5 0 0 1 4.4 0"/><path d="M12 19h.1M3 3l18 18"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  </svg>
+
+  <script defer src="./wasm.js"></script>
+  <script defer src="./data/demo.js"></script>
+  <script defer src="./data/registry.js"></script>
+  <script defer src="./data/build.js"></script>
+  <script defer src="./core.js"></script>
+  <script defer src="./policy.js"></script>
+  <script defer src="./state.js"></script>
+  <script defer src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "id": "SK-01",
+  "kind": "skill",
+  "name": "frame.question",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Turn an observation into one falsifiable question worth a charter.",
+  "trigger": "An observation, gap or program need.",
+  "inputs": [
+    "observation"
+  ],
+  "outputs": [
+    "charter_draft"
+  ],
+  "tools": [
+    "TL-15"
+  ],
+  "evidence_bar": "none",
+  "guards": [
+    "one question per charter",
+    "name the decision the answer would change"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK01-01",
+      "pass": "reviewer can state the falsifier unaided (4/5)"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-01)"
+}

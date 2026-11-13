@@ -1,0 +1,31 @@
+{
+  "id": "WF-06",
+  "kind": "workflow",
+  "name": "review",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "Weekly evidence review.",
+  "stages": [
+    "triage",
+    "verify-ledger",
+    "audit-sample",
+    "gates",
+    "budget",
+    "incidents",
+    "registry"
+  ],
+  "gates": [],
+  "budgets": {
+    "wall_clock": "90m",
+    "usd": 0,
+    "tokens": 0
+  },
+  "checkpoints": [
+    "after:audit-sample"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "DR"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-06)"
+}

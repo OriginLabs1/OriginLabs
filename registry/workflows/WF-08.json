@@ -1,0 +1,31 @@
+{
+  "id": "WF-08",
+  "kind": "workflow",
+  "name": "evolve",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "Repeated friction, new evidence, or a quarterly review.",
+  "stages": [
+    "proposal",
+    "impact",
+    "trial",
+    "decision",
+    "version",
+    "migration",
+    "deprecate"
+  ],
+  "gates": [],
+  "budgets": {
+    "wall_clock": "4w",
+    "usd": 20,
+    "tokens": 500000
+  },
+  "checkpoints": [
+    "after:trial"
+  ],
+  "on_failure": "pause",
+  "outputs": [
+    "DR"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-08)"
+}

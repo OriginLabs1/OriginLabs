@@ -1,0 +1,32 @@
+{
+  "id": "MD-lfm3-1.7b",
+  "kind": "model",
+  "name": "LFM3 1.7B",
+  "family": "lfm3",
+  "tier": "T1",
+  "params": "1.7B",
+  "active_params": "1.7B",
+  "context": 32768,
+  "modalities": [
+    "text"
+  ],
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "license": "LFM Open License",
+  "license_class": "non-OSI",
+  "license_verified": false,
+  "source": "https://huggingface.co/",
+  "digest": null,
+  "serving": [
+    "llama.cpp"
+  ],
+  "evals": {},
+  "cost_per_1k_tasks_usd": 0,
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "status": "probation",
+  "admitted": null,
+  "reviewed": "2026-11-13",
+  "notes": "Efficient agent / tool-execution contender.",
+  "spec_ref": "SPECS.md §2.6"
+}

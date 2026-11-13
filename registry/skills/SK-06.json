@@ -1,0 +1,38 @@
+{
+  "id": "SK-06",
+  "kind": "skill",
+  "name": "verify.replicate",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Independently rerun a claim and report agreement or divergence.",
+  "trigger": "An E2 evidence record.",
+  "inputs": [
+    "claim",
+    "evidence",
+    "tolerance"
+  ],
+  "outputs": [
+    "replication_evidence",
+    "verdict"
+  ],
+  "tools": [
+    "TL-02",
+    "TL-06",
+    "TL-09",
+    "TL-17"
+  ],
+  "evidence_bar": "E3",
+  "guards": [
+    "operator differs from original",
+    "model family differs when model-dependent",
+    "environment rebuilt from manifest"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK06-01",
+      "pass": "seeded divergence detected 5/5; true replication accepted 5/5"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-06)"
+}

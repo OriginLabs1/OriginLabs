@@ -1,0 +1,33 @@
+{
+  "id": "WF-07",
+  "kind": "workflow",
+  "name": "incident",
+  "version": "1.0.0",
+  "status": "active",
+  "trigger": "A data-class breach, bad claim, tool failure, or unsafe output.",
+  "stages": [
+    "detect",
+    "contain",
+    "assess",
+    "correct",
+    "notify",
+    "postmortem",
+    "patch"
+  ],
+  "gates": [],
+  "budgets": {
+    "wall_clock": "72h",
+    "usd": 0,
+    "tokens": 0
+  },
+  "checkpoints": [
+    "after:contain",
+    "after:postmortem"
+  ],
+  "on_failure": "rollback",
+  "outputs": [
+    "KN",
+    "DR"
+  ],
+  "spec_ref": "SPECS.md §3.4 (WF-07)"
+}

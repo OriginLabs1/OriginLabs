@@ -1,0 +1,24 @@
+OriginLabs is a local-first research ledger for Android. It helps you turn a question into a falsifiable claim, attach graded evidence and record the decisions that moved the claim forward — all in an append-only hash chain that stays on your device.
+
+The chain is built and verified by a Rust core compiled to WebAssembly. The same source compiles to a native command-line tool. Canonical JSON, SHA-256 and verification live in that core; the app refuses to run without it, and there is no JavaScript fallback for hashing.
+
+Features:
+
+• Append-only ledger. Corrections are new events, never edits. Imports are verified before they are accepted.
+• Evidence grades E1–E4 with explicit floors: investigate with E1, support with E2, establish with E3 (E4 for high-risk work).
+• Gate policy: agents can never sign a gate, and a Transfer requires two distinct human signers.
+• Data classes 0–4. Confidential payloads carry references and hashes, not raw content.
+• 49 FOSS capabilities embedded as a searchable registry: 13 skills, 20 tools, 8 workflows and 8 models.
+• In-app self-test and a tamper test that alters one byte in a copy and shows verification failing.
+• Export a verified JSON bundle, raw JSONL, or share it through the Android share sheet.
+
+Privacy is structural, not a setting:
+
+• No permissions at all, including no internet permission.
+• No account, no telemetry, no analytics, no advertising, no crash reporting.
+• The app makes no network requests. The WebView blocks network loads.
+• Cloud backup and device transfer are disabled.
+
+OriginLabs is free and open source under the MIT licence. It is part of a project that admits only free, zero-cost, local-first tools and models. There is no paid tier.
+
+The app works offline after installation. An installable web version with the same code is available from the project site.

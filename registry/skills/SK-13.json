@@ -1,0 +1,36 @@
+{
+  "id": "SK-13",
+  "kind": "skill",
+  "name": "review.gate",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Assemble and defend a gate packet, or reject it.",
+  "trigger": "A gate request.",
+  "inputs": [
+    "charter",
+    "claims",
+    "runs"
+  ],
+  "outputs": [
+    "gate_packet",
+    "recommendation"
+  ],
+  "tools": [
+    "TL-02",
+    "TL-04",
+    "TL-16"
+  ],
+  "evidence_bar": "every claim above E1 linked",
+  "guards": [
+    "producer is not sole Transfer reviewer",
+    "agents cannot sign"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK13-01",
+      "pass": "seeded inflated grades rejected 5/5"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-13)"
+}

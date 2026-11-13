@@ -1,0 +1,34 @@
+{
+  "id": "MD-qwen3.5-9b",
+  "kind": "model",
+  "name": "Qwen3.5 9B",
+  "family": "qwen3.5",
+  "tier": "T1",
+  "params": "9B",
+  "active_params": "9B",
+  "context": 32768,
+  "modalities": [
+    "text"
+  ],
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "license": "Apache-2.0",
+  "license_class": "OSI",
+  "license_verified": false,
+  "source": "https://huggingface.co/",
+  "digest": null,
+  "serving": [
+    "ollama",
+    "llama.cpp",
+    "vllm"
+  ],
+  "evals": {},
+  "cost_per_1k_tasks_usd": 0,
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "status": "probation",
+  "admitted": null,
+  "reviewed": "2026-11-13",
+  "notes": "Strongest general SLM in the Nov 2026 assessment; T1 premium.",
+  "spec_ref": "SPECS.md §2.6"
+}

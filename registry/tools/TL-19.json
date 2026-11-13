@@ -1,0 +1,18 @@
+{
+  "id": "TL-19",
+  "kind": "tool",
+  "name": "workspace.init",
+  "version": "1.0.0",
+  "status": "active",
+  "transport": "local",
+  "side_effects": "local-write",
+  "idempotent": true,
+  "data_class_max": 0,
+  "approval": "none",
+  "failure": "halt",
+  "free_to_use": true,
+  "requires_paid_service": false,
+  "audit": "ledger",
+  "summary": "Provision the .origin workspace and policy.",
+  "spec_ref": "SPECS.md §2.3 (TL-19)"
+}

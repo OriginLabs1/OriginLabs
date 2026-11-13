@@ -1,0 +1,40 @@
+Categories:
+  - Science & Education
+  - Productivity
+License: MIT
+AuthorName: OriginLabs
+WebSite: https://originlabs1.github.io/OriginLabs/
+SourceCode: https://github.com/OriginLabs1/OriginLabs
+IssueTracker: https://github.com/OriginLabs1/OriginLabs/issues
+Changelog: https://github.com/OriginLabs1/OriginLabs/releases
+Donate: https://github.com/OriginLabs1/OriginLabs
+
+AutoName: OriginLabs
+
+RepoType: git
+Repo: https://github.com/OriginLabs1/OriginLabs.git
+
+Builds:
+  - versionName: 0.0.1
+    versionCode: 1
+    commit: v0.0.1
+    subdir: mobile
+    sudo:
+      - apt-get update
+      - apt-get install -y --no-install-recommends openjdk-21-jdk-headless aapt2 zipalign apksigner zip unzip curl
+    init: |
+      mkdir -p toolchain
+      curl -sSL -o toolchain/android-34.jar https://raw.githubusercontent.com/Sable/android-platforms/master/android-34/android.jar
+      curl -sSL -o toolchain/r8.jar https://dl.google.com/dl/android/maven2/com/android/tools/r8/8.9.35/r8-8.9.35.jar
+      rustup target add wasm32-unknown-unknown
+    build: |
+      ./scripts/build-wasm.sh
+      node scripts/gen-icons.mjs
+      node scripts/build-web.mjs
+      ORIGINLABS_UNSIGNED=1 ./scripts/build-apk.sh
+    output: build/OriginLabs-0.0.1.apk
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 0.0.1
+CurrentVersionCode: 1

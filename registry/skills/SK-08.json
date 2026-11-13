@@ -1,0 +1,34 @@
+{
+  "id": "SK-08",
+  "kind": "skill",
+  "name": "challenge.claim",
+  "version": "1.0.0",
+  "status": "active",
+  "intent": "Attack a claim before the world does.",
+  "trigger": "A supported claim.",
+  "inputs": [
+    "claim",
+    "evidence"
+  ],
+  "outputs": [
+    "challenge_report",
+    "verdict"
+  ],
+  "tools": [
+    "TL-04",
+    "TL-09"
+  ],
+  "evidence_bar": "specific evidence or specific gap",
+  "guards": [
+    "no strawmen",
+    "no rhetorical skepticism without a test"
+  ],
+  "evals": [
+    {
+      "id": "EVAL-SK08-01",
+      "pass": "seeded flaws flagged 4/5; sound claims survive 4/5"
+    }
+  ],
+  "owner": "principal",
+  "spec_ref": "SPECS.md §1.4 (SK-08)"
+}
