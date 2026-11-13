@@ -69,20 +69,29 @@ jobs:
           node scripts/gen-icons.mjs
           SOURCE_DATE_EPOCH=1763078400 node scripts/build-web.mjs
 
+      # The unsigned path must build without any signing material at all.
       - name: Build an unsigned APK
         working-directory: mobile
         run: |
           ORIGINLABS_UNSIGNED=1 ./scripts/build-apk.sh
+          test -s build/OriginLabs-0.0.1.apk
+          ! apksigner verify build/OriginLabs-0.0.1.apk 2>/dev/null
+
+      # Then replace it with a signed one, because the mobile tests verify the
+      # signature of whatever APK is in build/.
+      - name: Sign with a throwaway key
+        working-directory: mobile
+        run: |
+          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/gen-keys.sh
+          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/build-apk.sh
 
       - name: Mobile tests
         working-directory: mobile
         run: node --test test/*.test.mjs
 
-      - name: Sign with a throwaway key and run the release check
+      - name: Assemble release assets and verify the checksums
         working-directory: mobile
         run: |
-          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/gen-keys.sh
-          ORIGINLABS_STORE_PASSWORD=ci-only-not-a-release-key ./scripts/build-apk.sh
           node scripts/release.mjs
           cd release && sha256sum -c SHA256SUMS
 
